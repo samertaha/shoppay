@@ -1,5 +1,15 @@
 import '@/styles/globals.scss'
-
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import { Provider } from "react-redux"
+import store from "../store"
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+let persistor = persistStore(store)
+export default function MyApp({ Component, pageProps }) {
+  return(
+    <Provider store={store}>
+      <PersistGate Loading={null} persistor={persistor}>
+        <Component {...pageProps} />
+      </PersistGate>
+   </Provider>
+  )
 }
