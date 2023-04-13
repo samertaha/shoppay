@@ -1,14 +1,14 @@
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 import Link from 'next/link';
-import { MdSecurity } from 'react-icons/md'
-import { BsSuitHeart } from 'react-icons/bs'
-import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri"
+import { MdSecurity } from 'react-icons/md';
+import { BsSuitHeart } from 'react-icons/bs';
+import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import { useState } from 'react';
 import UserMenu from './UserMenu';
 
 export default function Top() {
-    const [loggedIn, setLoggedIn] = useState(true)
-    const [visible, setVisible] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(true);
+    const [visible, setVisible] = useState(false);
 
     return (
         <div className="styles.top">
@@ -38,26 +38,28 @@ export default function Top() {
                     <li className={styles.li}
                         onMouseOver={() => setVisible(true)}
                         onMouseLeave={() => setVisible(false)}>
-                        {
-                            loggedIn ? <li className={styles.li}>
-                                <div className={styles.flex}>
-                                    <img src="https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_960_720.png" alt="" />
-                                    <span>Samer</span>
-                                    <RiArrowDropDownFill />
-                                </div>
-                            </li> :
-                                <li className={styles.li}>
+                        <ul>
+                            {
+                                loggedIn ? <li className={styles.li}>
                                     <div className={styles.flex}>
-                                        <RiAccountPinCircleLine />
-                                        <span>Account</span>
+                                        <img src="https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_960_720.png" alt="" />
+                                        <span>Samer</span>
                                         <RiArrowDropDownFill />
                                     </div>
-                                </li>
-                        }
+                                </li> :
+                                    <li className={styles.li}>
+                                        <div className={styles.flex}>
+                                            <RiAccountPinCircleLine />
+                                            <span>Account</span>
+                                            <RiArrowDropDownFill />
+                                        </div>
+                                    </li>
+                            }
+                        </ul>
                         {visible && <UserMenu loggedIn={loggedIn} />}
                     </li>
                 </ul>
             </div>
         </div>
-    )
+    );
 }
