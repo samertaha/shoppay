@@ -1,29 +1,27 @@
-import styles from './styles.module.scss'
-import Link from 'next/link'
-
-export default function UserMenu({ loggedIn }) {
+import Link from "next/link";
+import styles from "./styles.module.scss";
+import { signOut, signIn } from "next-auth/react";
+export default function UserMenu({ session }) {
     return (
         <div className={styles.menu}>
             <h4>Welcome to Shoppay !</h4>
-            {loggedIn ?
+            {session ? (
                 <div className={styles.flex}>
-                    <img
-                        src="https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_960_720.png"
-                        alt=""
-                        className={styles.menu__img}
-                    />
+                    <img src={session?.user?.image} alt="" className={styles.menu__img} />
                     <div className={styles.col}>
-                        <span>Welcome back,</span>
-                        <h3>M74JJI</h3>
-                        <span>Sign out</span>
+                        <span>Welcome Back,</span>
+                        <h3>{session?.user?.name}</h3>
+                        <span onClick={() => signOut()}>Sign out</span>
                     </div>
                 </div>
-                :
+            ) : (
                 <div className={styles.flex}>
                     <button className={styles.btn_primary}>Register</button>
-                    <button className={styles.btn_outlined}>Login</button>
+                    <button className={styles.btn_outlined} onClick={() => signIn()}>
+                        Login
+                    </button>
                 </div>
-            }
+            )}
             <ul>
                 <li>
                     <Link href="/profile">Account</Link>
@@ -38,10 +36,9 @@ export default function UserMenu({ loggedIn }) {
                     <Link href="/profile/address">Address</Link>
                 </li>
                 <li>
-                    <Link href="/profile/wishlist">Whishlist</Link>
+                    <Link href="/profile/whishlist">Whishlist</Link>
                 </li>
             </ul>
         </div>
-
-    )
+    );
 }
